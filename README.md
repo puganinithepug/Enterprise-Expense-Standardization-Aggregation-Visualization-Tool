@@ -1,6 +1,18 @@
 # Enterprise Expense Standardization, Aggregation & Visualization Tool
 
-The goal of the project is automation for an enterprise's expenses. Allowing a one-click VBA Macro execution of data standardization and data aggregation for reporting. Additionally, PowerBI is leveraged to enable automated data visualization for robust insights. 
+This VBA automation tool is designed to streamline enterprise expense tracking and quarterly reporting by consolidating data across multiple worksheets into a single, standardized quarterly report.
+
+What traditionally requires manual copying, formatting, header management, and recalculation across multiple sheets is reduced to a one-click execution.
+
+By automating repetitive, error-prone tasks, this solution effectively decreases tedious effort and introduces consistency, scalability, and audit-readiness into financial reporting workflows
+
+- User-driven quarter selection (Q1–Q4)
+- Automatic worksheet creation for quarterly expense reports
+- Dynamic month headers aligned to the selected quarter
+- Automated total calculations with safeguards against duplication
+- Header detection logic to prevent stacking on reruns
+- Cross-worksheet data consolidation
+- Rerun-safe design suitable for iterative reporting cycles
 
 **Accessible Tool Navigation**
 - The script allows the user to easily navigate through different sheets of the workbook via user form that contains a drop down of all sheets in the workbook.
@@ -16,7 +28,4 @@ Likewise, the script allows the user to import files into excel, by prompting th
 **Data Aggregation**
 - Running the yearly report will compile all data from the sheets in the workbook and paste it into the yearly report sheet.
 The aggregated data sheet produced is also formatted.
-
-**Fault Tolerance**
-- The script contains conditions which will prevent errors like double generation of a header on top of a set of data already decorated and formatted. Hence, adding new data and running the yearly report will only format those fles which have no format.
 
