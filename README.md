@@ -2,38 +2,55 @@
 
 This VBA automation tool is designed to streamline enterprise expense tracking and quarterly reporting by consolidating data across multiple worksheets into a single, standardized quarterly report.
 
-_What traditionally requires manual copying, formatting, header management, and recalculation across multiple sheets is reduced to a one-click execution._
+_What traditionally requires manual copying, formatting, header management, and recalculation across multiple sheets is reduced to an straightforward click-through execution._
 
 ## By automating repetitive, error-prone tasks, this solution effectively decreases tedious effort and introduces consistency, scalability, and audit-readiness into financial reporting workflows
 
-**_Run VBA Macro LaunchApp_**
+**_Run VBA Macro LaunchApp - Starts the Main User Form (Quarterly Expenses)_**
+
+**Outcomes:**
+
+- "Raw Data Quarter X Expenses i" sheets: **Data Simulation/Generation**
+- "Quarter X Expenses" sheet: **Data Standardization/Aggregation**
+- "Pivot Table for Quarter X" pivot table sheet: **Data Transformation**
+- _Where  X = quarter, i = index_
 
 1. Generates a number (user's choice) of raw data sheets, prepopulated with randomly generated data (Populate Sample Data).
-2. Standardizes raw data data for a specific quarter (selected by user in a dropdown menu) - the dropdown meny cannot be used until data is populated.
-3. Aggregates data (in the same event as standardizaton) into a "Quarter X Report" sheet, where X - 1, 2, 3, 4 based on user selection.
-- If the user wants to generate more data, say for another quarter, the user must simply click the Populate Sample data button again. This generates more Raw data sheets (however many user requests - following the wrokflow from step 1, the previously egnerated sheets are not overwritten).
+2. Standardizes raw data data for a specific quarter (selected by user in a dropdown menu) - the dropdown menu cannot be used until data is populated.
+3. Aggregates data (in the same event as standardizaton) into a "Quarter X Expenses" sheet, where X - 1, 2, 3, 4 based on user selection.
+4. Simultaneously with the aggregation/standardization of raw data sheets and the generation of the "Quarter X Expenses" sheet, a pivot table is built (based on the "Quarter X Expenses" sheet) inside of the "Pivot Table for Quarter X". The pivot table shows the "Sum of Total" per Category per Division. In otherwords, there is a total for every Category in a Division, a total for every Division, a grand total for that Quarter. It is a data transformation add-on, to improve structure and readabilty of the "Quarter X Expenses"
+- If the user wants to generate more data, say for another quarter, the user must simply click the Populate Sample data button again. This generates more Raw data sheets (however-many user requests - following the workflow from step 1, the previously generated sheets are not overwritten).
 - If in following generations of new data, the quarter selected already has correspondng data generated, then the user will be given the option to overwrite data or keep existing - in that case workflow is exited.
 4. There is a button to refresh workbook, so all sheets with data are deleted and there is only 1 empty sheet left (Sheet1 - to mimic default workbook set up).
-5. Close button exits workflow.
-6. Finally there is a Quick Analysis button.
-- This launches teh Quick Analysis user form.
+5. There is a Close button that will exit out of all user forms, exit the workflow. The sheets generated are preserved.
+6. The Quick Analysis button launches the Quick Analysis user form. The generated sheets are preserved.
 
-**_Quick Analysis Workflow_**
+**_Pressing the Quick Analysis Button Starts the Lookup User Form (Quick Analysis)_**
 
-_User selects from combo boxes:_
+**Outcomes:**
 
-- Combo box: Division - select east, west, north, south.
-- Combo box: Category - select any of the possible categories available as expenses in data set.
-- Check which quarters to include in the analysis: Q1, Q2, Q3, Q4 (if a quarter that has no corresponding data sheets in the workbook - fails gracefully with a message).
-- Finally check what KPIs should be retrieved from Quick Analysis: Sum, Average, and Standard Deviation.
+- Sum or average or standard deviation per specific Division & Category selection, across specific quarters: **Data Analysis, KPIs**
 
-_For each selected Quarter sheet, for each row:_
+1. The main button at the top of user form (Run Lookup) is disabled at the beginning. This is the button that renders the results. Prior to using this button the user must make selections on the form.
+2. The user must select both a Division (east, west, north, south) and a Category (any of the possible categories available as possible expenses, not guaranteed to be in the generated data set) from the dropdowns.
+3. The user must also check off at least one quarter: Check off which quarters to include in the analysis: Q1, Q2, Q3, Q4. If a quarter that has no corresponding data sheets in the workbook the user recieves a message box pop up with "Yes" and "No" options. If the user wants corresponding raw data sheets and "Quarter X Expenses" sheet generated, they must select "Yes", which automatically renders the raw data sheets, the "Quarter X Expenses" sheet and the corresponding pivot table sheet (basically generates outcomes of the Main user form for additional workflow flexibility).
+4. User must select one KPI - Sum or Average or Standard Deviation for Expenses matched for selected Division/Category lookup key, per across selected quarter(s). KPI selection is mutually exclusive - either calculate Sum, or Average, or Standard Deviation.n This is enforced by deselection of the initially selected KPI, if the user attempts to select a second KPI.
+5. After the user currectly selects all preferences from the user form, the Run Lookup button is enabled, it can be pressed to generate a numeric result in the text box below the Result label.
+- _Note:_ The text box will show "No matching data" when the generated data for that quarter (or across multiple quarters) does not contain a value for the Division/Category composite key, so it's not possible to generate a sum/average/standard deviation value. I.e there were no Expenses classified to the selected Category for that Divison, in that quarter (quarters).
+6. After pressing the Run Lookup button and a result appears in the text box, the Run Lookup button is temporarily disabled, the dropdowns and check boxes will be temporarily disabled as well. The user must press the Clear Selection button to clear the previous selections on the user form. After pressing the Clear Selection button, the dropdowns. check boxes are enabled again, the Run lookup remains disabled until minimum selections are made on the user form (as discussed in previous steps).
+7. The Back To Data button takes the user back to the previous user form (Main user form).
+8. There is a Close button that will exit out of all user forms, exit the workflow. The sheets generated are preserved.
 
-- VLOOKUP retrieves the Total based on a combined key composed from Division and Category, searching only in selected quarters.
-- When matches are found results are collected and processed based on what KPIs the user is looking for.
-- Results are aggregated and returned to the user.
+_Note: the only way to clear the workbook to original state is to use the Refresh Workbook button on the Main user form._
 
-**_Pivot tables for Effective Data Analysis_**
+_Development note: VLOOKUP -> XLOOKUP -> INDEX/MATCHING:_
 
-**_PowerQuery - The M Language of PowerBI - For Data Transformation and Visualization_**
+- The initial plan was to implement VLOOKUP for retrieval of the Total based on a combined key composed from Division and Category, searching only in selected quarters.
+- This approach was unideal because it would requiring copying data - ensuring that the value column to be searched is on the righthand side of the lookup key column.
+- Since the composite key is generated after the initial data set and is placed (as a hidden and protected column) on the righthand side of the Total column (the value column), the plan to use VLOOKUP was strategically adjusted. The best replacement for VLOOKUP would be XLOOKUP which is not contrained to column positions. Since the version of Excel used is 2016, it does not support XLOOKUP.
+- The workaround was using INDEX/MATCH instead, it is not constrained to specific column positions for lookup key and value.
+- When matches are found for the composite key, results are collected and processed based on what KPIs (sum, average or standard deviation) the user wants to calculate.
+- The result appears as output.
+
+**_TO BE CONTINUED WITH: PowerQuery - The M Language of PowerBI - Data Visualization_**
 
