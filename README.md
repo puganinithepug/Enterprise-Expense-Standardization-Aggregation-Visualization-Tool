@@ -79,8 +79,8 @@ _Data Tables of the Report_
       total revenue, Base Pkg Dimension, Cost of Order, Cost of Order Filter California, AVG Product Price 7%, AVG layout dim, Logistic Category Costs, Logistic Category Costs with Volume, All Costs, % Cost, % Cost state only, Cost Previous, Change in Cost, YTD Cost, YTD Revenue, Monday sales shares, All Revenue, % Revenue by Category, % Revenue Beauty & Hygiene, and YTD Revenue till August 2018...
 
 _Data Visualization_
-- The report contains several pages which demonstrate different methods of analyzing revenue and costs associated with enterprise operations from 2017 to 2018
-- Unpivot page contains unpivoted cost data, where costs are displayed in a stacked column chart, columns are organized by store_id, and the portion of cost is color coded by cost type within each column. There is also a bar chart for sum of revenue per state. This page also contains 2 slicers. One for filtering by state and within each state by city for stores in the store_id to cost bar chart; the second a slider for filtering by interval of price range of products sold, to be included in the revenue aggregation.
-
+- The report contains several pages which demonstrate different methods of analyzing revenue and costs associated with enterprise operations from 2017 to 2019
+- **Unpivot** page contains unpivoted cost data, where costs are displayed in a stacked column chart, columns are organized by store_id, and the portion of cost is color coded by cost type within each column. There is also a bar chart for sum of revenue per state. This page also contains 2 slicers. One for filtering by state and within each state by city for stores in the store_id to cost bar chart; the second a slider for filtering by interval of price range of products sold, to be included in the revenue aggregation.
+- **Details** page contains date based KPIs with formatted dates. There is also a bar graph which displays revenue by weekdays. The page also displays the total revenue and the total sales. 
 
 
