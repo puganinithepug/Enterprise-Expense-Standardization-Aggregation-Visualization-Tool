@@ -1,4 +1,6 @@
-# Enterprise 10-Q Reporting ETL
+# Enterprise 10-Q Reporting 
+
+## Standardization Aggregatoin and KPIs for Expense Reporting - VBA MAcro
 
 This VBA automation data pipeline is designed to streamline enterprise expense tracking and quarterly reporting by consolidating data across multiple worksheets into a single, standardized quarterly report.
 
@@ -52,7 +54,20 @@ _Development note: VLOOKUP -> XLOOKUP -> INDEX/MATCHING:_
 - When matches are found for the composite key, results are collected and processed based on what KPIs (sum, average or standard deviation) the user wants to calculate.
 - The result appears as output.
 
-**_PowerBI - Sales Data Visualization_**
+## 10-Q Sales, Revenue and Expenses Visualizations for Business Insights - Power BI & Microsoft Fabric
 
-The second part of this ETL was visualization of enterpreise sales revenue and costs using Power BI.
+The second part of this Enterprise 10-Q ETL is visualization of enterprise sales, revenue and costs using Power BI. Made as a follow up to the VBA Macro tool
+
+The Power BI report is designed for easy navigation for readers. The report also leverages dynamic RLS (role level security) to ensure controlled user access priviledges. The primary report page is the _Page Navigation_ page. This page is directly integrated with RLS, ensuring controlled access. The page has a selection panel for various pages in the report containing graphical analysis of the enterprise finances. Once a panel selection is made, the button click redirects the user to the selected report page.
+- RLS related data is contained in the **Security Table** and the **PLS** datasets. 
+
+_Data Transformation_
+- DAX Query was essential for exploring raw imported dataset, detecting problematic areas, as well as for creating measures based on the data for deriving KPIs.
+- Raw CSV and excel spreadsheets are imported and transformed with Power Query editor prior to any visualizations or analysis.
+- Maintaining the data model was an importeant component for organizing relationships between related datasets. 
+
+_Data Tables of the Report_
+- the **sales_total_2** table has the order_id  column as its primary key, with other columns containing the count of sales, the price, the revenue, the stock, the store id. the product_id, order_date, promo_type, promo_bin, promo_discount and Discount Price (a calculated column with DAX). This is the primary table.
+- the **producthierarchy** table contains product specific details. It has the product_id as its primary key - which is also the foreign key in the sales_total_2 table. This table contains columns: category, sub-category, product (brand), type, length, width, depth and Volume - a calculated column derived from length/depth/width.
+- 
 
