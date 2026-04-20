@@ -1,6 +1,6 @@
-# Enterprise Expense Standardization, Aggregation & Visualization Tool
+# Enterprise 10-Q Reporting ETL
 
-This VBA automation tool is designed to streamline enterprise expense tracking and quarterly reporting by consolidating data across multiple worksheets into a single, standardized quarterly report.
+This VBA automation data pipeline is designed to streamline enterprise expense tracking and quarterly reporting by consolidating data across multiple worksheets into a single, standardized quarterly report.
 
 _What traditionally requires manual copying, formatting, header management, and recalculation across multiple sheets is reduced to an straightforward click-through execution._
 
